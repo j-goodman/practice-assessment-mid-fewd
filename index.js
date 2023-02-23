@@ -15,7 +15,12 @@ const exampleRecords = require("./records");
  *
  * NOTE: You must use the `.map()` method.
  */
-function getAllRecordTitles() {}
+function getAllRecordTitles(records) {
+  if (records.length === 0) {
+    throw "Records array is empty"
+  } 
+  return records.map(record => record.title)
+}
 
 /**
  * checkIfAnyRecordHasGenre()
@@ -35,7 +40,13 @@ function getAllRecordTitles() {}
  *  checkIfAnyRecordHasGenre(records, "marching band");
  *  //> false
  */
-function checkIfAnyRecordHasGenre() {}
+function checkIfAnyRecordHasGenre(records, genre) {
+  if (records.length === 0) {
+    throw "Array entered is empty"
+  }
+  return records.some(record => record.genres.includes(genre))
+
+}
 
 /**
  * findByTitle()
@@ -48,7 +59,16 @@ function checkIfAnyRecordHasGenre() {}
  *
  * NOTE: You must use the `.find()` method.
  */
-function findByTitle() {}
+function findByTitle(records, id) {
+  if (records.length === 0) {
+    throw "Inputted array is empty."
+  }
+  const titleFound = records.find(record => record.title.toUpperCase() === id.toUpperCase())
+  if (!titleFound) {
+    return null
+  }
+  return titleFound
+}
 
 /**
  * getAllRecordsLongerThanNumberOfSeconds()
@@ -66,7 +86,18 @@ function findByTitle() {}
  * The .split() method will be useful for this.
  * NOTE: You must use the `.filter()` method.
  */
-function getAllRecordsLongerThanNumberOfSeconds() {}
+function getAllRecordsLongerThanNumberOfSeconds(records, lengthInSeconds) {
+  if (records.length === 0) {
+    throw "Array is empty."
+  }
+    let recordLength = records.filter((record) => {
+      let time = (record.length.split(":"))
+      let seconds = (+time[0] * 60) + (+time[1])
+      return seconds > lengthInSeconds
+    })
+  return recordLength
+  };
+
 
 /**
  * checkMinYear()
@@ -85,7 +116,15 @@ function getAllRecordsLongerThanNumberOfSeconds() {}
  *  checkMinYear(records, 1865));
  *  //>  true
  */
-function checkMinYear() {}
+function checkMinYear(records, year = 1900) {
+  // if (record.length === 0) {
+  //   throw "Year not available."
+  // }
+  if (!year) {
+    year
+  }
+  return records.every(record => record.year >= year)
+}
 
 /**
  * getArtistAndTitleObjects()
@@ -121,8 +160,14 @@ function checkMinYear() {}
       {"Alanis Morissette": "Jagged Little Pill"},
       {"The Beatles": "Rubber Soul"}]
  */
-function getArtistAndTitleObjects() {}
-
+function getArtistAndTitleObjects(records) {
+  if (records.length === 0) {
+    throw "No records available."
+  }
+  return records.map((record) => {
+    return {[record.artist] : record.title}
+  })
+}
 // Do not change anything below this line.
 module.exports = {
   getAllRecordTitles,
