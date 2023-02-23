@@ -124,7 +124,7 @@ describe("checkMinYear()", () => {
     expect(text).toMatch(/\.every\(.*\)/s);
   });
   test("should throw an error if there are no records", () => {
-    const actual = () => filterByGenre([]);
+    const actual = () => checkMinYear([]);
     expect(actual).toThrow();
   });
   test("should return true if all records have a year of at least the given year", () => {
